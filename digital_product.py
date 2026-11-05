@@ -13,6 +13,9 @@ class DigitalProduct(Product):
         super().display_information()
         print(f"Download Size: {self.get_download_size()} MB")
 
+    def get_fulfilment_info(self):
+        return "Delivered digitally via download link"
+
 if __name__ == "__main__":
     windows = DigitalProduct("D001", "Windows 11", 199.0, 100, 5000)
     windows.display_information()

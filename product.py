@@ -1,4 +1,6 @@
-class Product:
+from abc import ABC, abstractmethod
+
+class Product(ABC):
 
     def __init__(self, product_id, name, price, stock):
         self.__product_id = product_id
@@ -27,5 +29,15 @@ class Product:
 
     def get_stock(self):
         return self.__stock
+
+    @abstractmethod
+    def get_fulfilment_info(self):
+        pass
+
+if __name__ == "__main__":
+    p = Product("P999", "Mystery", 10.0, 1)
+
+        
+
         
 
