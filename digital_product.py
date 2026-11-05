@@ -19,3 +19,4 @@ class DigitalProduct(Product):
 if __name__ == "__main__":
     windows = DigitalProduct("D001", "Windows 11", 199.0, 100, 5000)
     windows.display_information()
+    print(windows.get_fulfilment_info())
