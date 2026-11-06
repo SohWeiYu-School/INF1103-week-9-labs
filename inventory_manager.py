@@ -7,14 +7,18 @@ import os
 
 from inventory import Inventory
 from product import Product
+from physical_product import PhysicalProduct
+from digital_product import DigitalProduct
+
 
 INVENTORY_FILE = "inventory.json"
 
 
 def load_default_products(inventory):
-    inventory.add_product(Product("P001", "Laptop", 1200.00, 15))
-    inventory.add_product(Product("P002", "Mouse", 25.50, 40))
-    inventory.add_product(Product("P003", "Keyboard", 45.00, 25))
+    inventory.add_product(PhysicalProduct("physical", "P001", "Laptop", 1200.00, 15, 2.0))
+    inventory.add_product(PhysicalProduct("physical", "P002", "Mouse", 25.50, 40, 3.0))
+    inventory.add_product(PhysicalProduct("physical","P003", "Keyboard", 45.00, 25, 5.5))
+    inventory.add_product(DigitalProduct("digital","P004", "Windows 11", 45.00, 25, 500))
 
 
 def load_inventory(inventory):
@@ -23,7 +27,10 @@ def load_inventory(inventory):
         with open(INVENTORY_FILE, "r") as f:
             data = json.load(f)
         for item in data:
-            product = Product(item["id"], item["name"], item["price"], item["stock"])
+            if item["type"] == "physical":
+                product = PhysicalProduct(item["id"], item["name"], item["price"], item["stock"], item["weight"])
+            elif item["type"] == "digital":
+                product = DigitalProduct(item["id"], item["name"], item["price"], item["stock"], item["download_size"])
             inventory.add_product(product)
         print("Inventory loaded successfully.")
     else:
