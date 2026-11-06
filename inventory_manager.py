@@ -1,12 +1,11 @@
 """
-INF1103 Week 8 - Inventory Management System (OOP)
+INF1103 Week 9 (Lab 7) - Inventory Management System (Inheritance, Abstraction, Interfaces)
 """
 
 import json
 import os
 
 from inventory import Inventory
-from product import Product
 from physical_product import PhysicalProduct
 from digital_product import DigitalProduct
 
@@ -15,10 +14,10 @@ INVENTORY_FILE = "inventory.json"
 
 
 def load_default_products(inventory):
-    inventory.add_product(PhysicalProduct("physical", "P001", "Laptop", 1200.00, 15, 2.0))
-    inventory.add_product(PhysicalProduct("physical", "P002", "Mouse", 25.50, 40, 3.0))
-    inventory.add_product(PhysicalProduct("physical","P003", "Keyboard", 45.00, 25, 5.5))
-    inventory.add_product(DigitalProduct("digital","P004", "Windows 11", 45.00, 25, 500))
+    inventory.add_product(PhysicalProduct("P001", "Laptop", 1200.00, 15, 2.0))
+    inventory.add_product(PhysicalProduct("P002", "Mouse", 25.50, 40, 3.0))
+    inventory.add_product(PhysicalProduct("P003", "Keyboard", 45.00, 25, 5.5))
+    inventory.add_product(DigitalProduct("D001", "Windows 11", 199.00, 100, 5000))
 
 
 def load_inventory(inventory):
@@ -66,7 +65,19 @@ def add_product(inventory):
     name = input("Product Name: ")
     price = float(input("Price: "))
     stock = int(input("Stock Quantity: "))
-    inventory.add_product(Product(product_id, name, price, stock))
+    product_type = input("Type (physical/digital): ").strip().lower()
+
+    if product_type == "physical":
+        weight = float(input("Weight (kg): "))
+        product = PhysicalProduct(product_id, name, price, stock, weight)
+    elif product_type == "digital":
+        download_size = float(input("Download Size (MB): "))
+        product = DigitalProduct(product_id, name, price, stock, download_size)
+    else:
+        print("Invalid type. Please enter 'physical' or 'digital'.")
+        return
+
+    inventory.add_product(product)
     print("Product added successfully!")
 
 
